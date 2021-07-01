@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {useAuth } from "./providers/auth";
+import Profile from "./components/profile";
+import { CardContext } from "./providers/cardProvider";
 
 function App() {
+  const { user, setUser } = useAuth();
+  const {card, setCard } = React.useContext(CardContext);
+  console.log(card.vencimento)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>{user.name}</h1>
+      <h1>{card.numero}</h1>
+      <h1>{card.vencimento}</h1>
+      <input type="text" onChange={(e) => setUser({ name: e.target.value })} />
+      <input type="text" onChange={(e) => setCard({ numero: e.target.value })} />
+      <Profile />
     </div>
   );
 }
